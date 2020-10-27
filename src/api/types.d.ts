@@ -15,3 +15,10 @@ export interface IArticleData {
   type: string
   pageviews: number
 }
+
+export interface IRoleData {
+  key: string
+  name: string
+  description: string
+  routes: any
+}

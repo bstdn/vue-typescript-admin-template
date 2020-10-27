@@ -9,8 +9,14 @@
       @click="handleClickOutside"
     />
     <sidebar class="sidebar-container" />
-    <div class="main-container">
-      <navbar />
+    <div
+      :class="{hasTagsView: showTagsView}"
+      class="main-container"
+    >
+      <div :class="{'fixed-header': fixedHeader}">
+        <navbar />
+        <tags-view v-if="showTagsView" />
+      </div>
       <app-main />
     </div>
   </div>
@@ -20,7 +26,8 @@
 import { Component } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
 import { DeviceType, AppModule } from '@/store/modules/app'
-import { AppMain, Navbar, Sidebar } from './components'
+import { SettingsModule } from '@/store/modules/settings'
+import { AppMain, Navbar, Sidebar, TagsView } from './components'
 import ResizeMixin from './mixin/resize'
 
 @Component({
@@ -28,7 +35,8 @@ import ResizeMixin from './mixin/resize'
   components: {
     AppMain,
     Navbar,
-    Sidebar
+    Sidebar,
+    TagsView
   }
 })
 export default class extends mixins(ResizeMixin) {
@@ -39,6 +47,14 @@ export default class extends mixins(ResizeMixin) {
       withoutAnimation: this.sidebar.withoutAnimation,
       mobile: this.device === DeviceType.Mobile
     }
+  }
+
+  get showTagsView() {
+    return SettingsModule.showTagsView
+  }
+
+  get fixedHeader() {
+    return SettingsModule.fixedHeader
   }
 
   private handleClickOutside() {
@@ -83,6 +99,15 @@ export default class extends mixins(ResizeMixin) {
   left: 0;
   z-index: 1001;
   overflow: hidden;
+}
+
+.fixed-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9;
+  width: calc(100% - #{$sideBarWidth});
+  transition: width 0.28s;
 }
 
 .hideSidebar {
