@@ -10,8 +10,9 @@
     >
       <div class="title-container">
         <h3 class="title">
-          Login Form
+          {{ $t('login.title') }}
         </h3>
+        <lang-select class="set-language" />
       </div>
 
       <el-form-item prop="username">
@@ -21,34 +22,45 @@
         <el-input
           ref="username"
           v-model="loginForm.username"
+          :placeholder="$t('login.username')"
           name="username"
           type="text"
+          tabindex="1"
           autocomplete="on"
-          placeholder="username"
         />
       </el-form-item>
 
-      <el-form-item prop="password">
-        <span class="svg-container">
-          <svg-icon name="password" />
-        </span>
-        <el-input
-          :key="passwordType"
-          ref="password"
-          v-model="loginForm.password"
-          :type="passwordType"
-          placeholder="password"
-          name="password"
-          autocomplete="on"
-          @keyup.enter.native="handleLogin"
-        />
-        <span
-          class="show-pwd"
-          @click="showPwd"
-        >
-          <svg-icon :name="passwordType === 'password' ? 'eye-off' : 'eye-on'" />
-        </span>
-      </el-form-item>
+      <el-tooltip
+        v-model="capsTooltip"
+        content="Caps lock is On"
+        placement="right"
+        manual
+      >
+        <el-form-item prop="password">
+          <span class="svg-container">
+            <svg-icon name="password" />
+          </span>
+          <el-input
+            :key="passwordType"
+            ref="password"
+            v-model="loginForm.password"
+            :type="passwordType"
+            :placeholder="$t('login.password')"
+            name="password"
+            tabindex="2"
+            autocomplete="on"
+            @keyup.native="checkCapslock"
+            @blur="capsTooltip = false"
+            @keyup.enter.native="handleLogin"
+          />
+          <span
+            class="show-pwd"
+            @click="showPwd"
+          >
+            <svg-icon :name="passwordType === 'password' ? 'eye-off' : 'eye-on'" />
+          </span>
+        </el-form-item>
+      </el-tooltip>
 
       <el-button
         :loading="loading"
@@ -56,13 +68,13 @@
         style="width:100%; margin-bottom:30px;"
         @click.native.prevent="handleLogin"
       >
-        Sign in
+        {{ $t('login.logIn') }}
       </el-button>
 
       <div style="position:relative">
         <div class="tips">
-          <span> username: admin </span>
-          <span> password: any </span>
+          <span>{{ $t('login.username') }} : admin </span>
+          <span>{{ $t('login.password') }} : {{ $t('login.any') }} </span>
         </div>
       </div>
     </el-form>
@@ -76,9 +88,13 @@ import { Dictionary } from 'vue-router/types/router'
 import { Form as ElForm, Input } from 'element-ui'
 import { UserModule } from '@/store/modules/user'
 import { isValidUsername } from '@/utils/validate'
+import LangSelect from '@/components/LangSelect/index.vue'
 
 @Component({
-  name: 'Login'
+  name: 'Login',
+  components: {
+    LangSelect
+  }
 })
 export default class extends Vue {
   private validateUsername = (rule: any, value: string, callback: Function) => {
@@ -88,6 +104,7 @@ export default class extends Vue {
       callback()
     }
   }
+
   private validatePassword = (rule: any, value: string, callback: Function) => {
     if (value.length < 6) {
       callback(new Error('The password can not be less than 6 digits'))
@@ -95,16 +112,20 @@ export default class extends Vue {
       callback()
     }
   }
+
   private loginForm = {
     username: 'admin',
     password: '111111'
   }
+
   private loginRules = {
     username: [{ validator: this.validateUsername, trigger: 'blur' }],
     password: [{ validator: this.validatePassword, trigger: 'blur' }]
   }
+
   private passwordType = 'password'
   private loading = false
+  private capsTooltip = false
   private redirect?: string
   private otherQuery: Dictionary<string> = {}
 
@@ -125,6 +146,11 @@ export default class extends Vue {
     } else if (this.loginForm.password === '') {
       (this.$refs.password as Input).focus()
     }
+  }
+
+  private checkCapslock(e: KeyboardEvent) {
+    const { key } = e
+    this.capsTooltip = key !== null && key.length === 1 && (key >= 'A' && key <= 'Z')
   }
 
   private showPwd() {
@@ -254,6 +280,15 @@ export default class extends Vue {
       margin: 0px auto 40px auto;
       text-align: center;
       font-weight: bold;
+    }
+
+    .set-language {
+      color: #fff;
+      position: absolute;
+      top: 3px;
+      font-size: 18px;
+      right: 0px;
+      cursor: pointer;
     }
   }
 
