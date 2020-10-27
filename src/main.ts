@@ -10,8 +10,13 @@ import '@/styles/index.scss'
 import App from '@/App.vue'
 import store from '@/store'
 import router from '@/router'
+import i18n from '@/lang'
 import '@/icons/components'
 import '@/permission'
+
+Vue.use(ElementUI, {
+  i18n: (key: string, value: string) => i18n.t(key, value)
+})
 
 Vue.use(ElementUI)
 Vue.use(SvgIcon, {
@@ -25,5 +30,6 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
+  i18n,
   render: (h) => h(App)
 }).$mount('#app')
