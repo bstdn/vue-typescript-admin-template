@@ -43,8 +43,9 @@ export default new Router({
         {
           path: 'dashboard',
           component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard/index.vue'),
+          name: 'Dashboard',
           meta: {
-            title: 'Dashboard',
+            title: 'dashboard',
             icon: 'dashboard'
           }
         }
@@ -55,7 +56,7 @@ export default new Router({
       component: Layout,
       redirect: '/example/tree',
       meta: {
-        title: 'Example',
+        title: 'example',
         icon: 'example'
       },
       children: [
@@ -63,7 +64,7 @@ export default new Router({
           path: 'tree',
           component: () => import(/* webpackChunkName: "tree" */ '@/views/tree/index.vue'),
           meta: {
-            title: 'Tree',
+            title: 'tree',
             icon: 'tree'
           }
         },
@@ -71,7 +72,7 @@ export default new Router({
           path: 'table',
           component: () => import(/* webpackChunkName: "table" */ '@/views/table/index.vue'),
           meta: {
-            title: 'Table',
+            title: 'table',
             icon: 'table'
           }
         }
@@ -85,7 +86,7 @@ export default new Router({
           path: 'index',
           component: () => import(/* webpackChunkName: "form" */ '@/views/form/index.vue'),
           meta: {
-            title: 'Form',
+            title: 'form',
             icon: 'form'
           }
         }
@@ -96,7 +97,7 @@ export default new Router({
       component: Layout,
       redirect: '/nested/menu1',
       meta: {
-        title: 'Nested',
+        title: 'nested',
         icon: 'nested'
       },
       children: [
@@ -104,42 +105,42 @@ export default new Router({
           path: 'menu1',
           component: () => import(/* webpackChunkName: "menu1" */ '@/views/nested/menu1/index.vue'),
           redirect: '/nested/menu1/menu1-1',
-          meta: { title: 'Menu1' },
+          meta: { title: 'menu1' },
           children: [
             {
               path: 'menu1-1',
               component: () => import(/* webpackChunkName: "menu1-1" */ '@/views/nested/menu1/menu1-1/index.vue'),
-              meta: { title: 'Menu1-1' }
+              meta: { title: 'menu1-1' }
             },
             {
               path: 'menu1-2',
               component: () => import(/* webpackChunkName: "menu1-2" */ '@/views/nested/menu1/menu1-2/index.vue'),
               redirect: '/nested/menu1/menu1-2/menu1-2-1',
-              meta: { title: 'Menu1-2' },
+              meta: { title: 'menu1-2' },
               children: [
                 {
                   path: 'menu1-2-1',
                   component: () => import(/* webpackChunkName: "menu1-2-1" */ '@/views/nested/menu1/menu1-2/menu1-2-1/index.vue'),
-                  meta: { title: 'Menu1-2-1' }
+                  meta: { title: 'menu1-2-1' }
                 },
                 {
                   path: 'menu1-2-2',
                   component: () => import(/* webpackChunkName: "menu1-2-2" */ '@/views/nested/menu1/menu1-2/menu1-2-2/index.vue'),
-                  meta: { title: 'Menu1-2-2' }
+                  meta: { title: 'menu1-2-2' }
                 }
               ]
             },
             {
               path: 'menu1-3',
               component: () => import(/* webpackChunkName: "menu1-3" */ '@/views/nested/menu1/menu1-3/index.vue'),
-              meta: { title: 'Menu1-3' }
+              meta: { title: 'menu1-3' }
             }
           ]
         },
         {
           path: 'menu2',
           component: () => import(/* webpackChunkName: "menu2" */ '@/views/nested/menu2/index.vue'),
-          meta: { title: 'Menu2' }
+          meta: { title: 'menu2' }
         }
       ]
     },
@@ -148,9 +149,9 @@ export default new Router({
       component: Layout,
       children: [
         {
-          path: 'https://github.com/Armour/vue-typescript-admin-template',
+          path: 'https://github.com/bstdn/vue-typescript-admin-template',
           meta: {
-            title: 'External Link',
+            title: 'externalLink',
             icon: 'link'
           }
         }
