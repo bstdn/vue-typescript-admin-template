@@ -12,6 +12,7 @@
     />
     <div class="right-menu">
       <template v-if="device!=='mobile'">
+        <screenfull class="right-menu-item hover-effect" />
         <el-tooltip
           :content="$t('navbar.size')"
           effect="dark"
@@ -65,6 +66,7 @@ import { UserModule } from '@/store/modules/user'
 import Breadcrumb from '@/components/Breadcrumb/index.vue'
 import Hamburger from '@/components/Hamburger/index.vue'
 import LangSelect from '@/components/LangSelect/index.vue'
+import Screenfull from '@/components/Screenfull/index.vue'
 import SizeSelect from '@/components/SizeSelect/index.vue'
 
 @Component({
@@ -73,6 +75,7 @@ import SizeSelect from '@/components/SizeSelect/index.vue'
     Breadcrumb,
     Hamburger,
     LangSelect,
+    Screenfull,
     SizeSelect
   }
 })

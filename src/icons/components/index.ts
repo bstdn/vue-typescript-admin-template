@@ -1,9 +1,11 @@
 /* tslint:disable */
 import './dashboard'
 import './example'
+import './exit-fullscreen'
 import './eye-off'
 import './eye-on'
 import './form'
+import './fullscreen'
 import './hamburger'
 import './language'
 import './link'
