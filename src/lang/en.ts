@@ -18,7 +18,8 @@ export default {
   navbar: {
     logOut: 'Log Out',
     dashboard: 'Dashboard',
-    github: 'Github'
+    github: 'Github',
+    size: 'Global Size'
   },
   login: {
     title: 'Login Form',

@@ -12,6 +12,13 @@
     />
     <div class="right-menu">
       <template v-if="device!=='mobile'">
+        <el-tooltip
+          :content="$t('navbar.size')"
+          effect="dark"
+          placement="bottom"
+        >
+          <size-select class="right-menu-item hover-effect" />
+        </el-tooltip>
         <lang-select class="right-menu-item hover-effect" />
       </template>
       <el-dropdown
@@ -58,13 +65,15 @@ import { UserModule } from '@/store/modules/user'
 import Breadcrumb from '@/components/Breadcrumb/index.vue'
 import Hamburger from '@/components/Hamburger/index.vue'
 import LangSelect from '@/components/LangSelect/index.vue'
+import SizeSelect from '@/components/SizeSelect/index.vue'
 
 @Component({
   name: 'Navbar',
   components: {
     Breadcrumb,
     Hamburger,
-    LangSelect
+    LangSelect,
+    SizeSelect
   }
 })
 export default class extends Vue {

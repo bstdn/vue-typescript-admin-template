@@ -1,5 +1,5 @@
 import { VuexModule, Module, Mutation, Action, getModule } from 'vuex-module-decorators'
-import { getSidebarStatus, setSidebarStatus, setLanguage } from '@/utils/cookies'
+import { getSidebarStatus, setSidebarStatus, setLanguage, getSize, setSize } from '@/utils/cookies'
 import { getLocale } from '@/lang'
 import store from '@/store'
 
@@ -15,6 +15,7 @@ export interface IAppState {
     withoutAnimation: boolean
   }
   language: string
+  size: string
 }
 
 @Module({ dynamic: true, store, name: 'app' })
@@ -25,6 +26,7 @@ class App extends VuexModule implements IAppState {
   }
   public device = DeviceType.Desktop
   public language = getLocale()
+  public size = getSize() || 'medium'
 
   @Mutation
   private TOGGLE_SIDEBAR(withoutAnimation: boolean) {
@@ -55,6 +57,12 @@ class App extends VuexModule implements IAppState {
     setLanguage(this.language)
   }
 
+  @Mutation
+  private SET_SIZE(size: string) {
+    this.size = size
+    setSize(this.size)
+  }
+
   @Action
   public ToggleSideBar(withoutAnimation: boolean) {
     this.TOGGLE_SIDEBAR(withoutAnimation)
@@ -73,6 +81,11 @@ class App extends VuexModule implements IAppState {
   @Action
   public SetLanguage(language: string) {
     this.SET_LANGUAGE(language)
+  }
+
+  @Action
+  public SetSize(size: string) {
+    this.SET_SIZE(size)
   }
 }
 
