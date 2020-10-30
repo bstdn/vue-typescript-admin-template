@@ -18,6 +18,9 @@
         <tags-view v-if="showTagsView" />
       </div>
       <app-main />
+      <right-panel v-if="showSettings">
+        <settings />
+      </right-panel>
     </div>
   </div>
 </template>
@@ -27,7 +30,8 @@ import { Component } from 'vue-property-decorator'
 import { mixins } from 'vue-class-component'
 import { DeviceType, AppModule } from '@/store/modules/app'
 import { SettingsModule } from '@/store/modules/settings'
-import { AppMain, Navbar, Sidebar, TagsView } from './components'
+import { AppMain, Navbar, Settings, Sidebar, TagsView } from './components'
+import RightPanel from '@/components/RightPanel/index.vue'
 import ResizeMixin from './mixin/resize'
 
 @Component({
@@ -35,6 +39,8 @@ import ResizeMixin from './mixin/resize'
   components: {
     AppMain,
     Navbar,
+    RightPanel,
+    Settings,
     Sidebar,
     TagsView
   }
@@ -47,6 +53,10 @@ export default class extends mixins(ResizeMixin) {
       withoutAnimation: this.sidebar.withoutAnimation,
       mobile: this.device === DeviceType.Mobile
     }
+  }
+
+  get showSettings() {
+    return SettingsModule.showSettings
   }
 
   get showTagsView() {
@@ -118,6 +128,10 @@ export default class extends mixins(ResizeMixin) {
   .sidebar-container {
     width: 54px !important;
   }
+
+  .fixed-header {
+    width: calc(100% - 54px)
+  }
 }
 
 /* for mobile response 适配移动端 */
@@ -142,6 +156,10 @@ export default class extends mixins(ResizeMixin) {
       transition-duration: 0.3s;
       transform: translate3d(-$sideBarWidth, 0, 0);
     }
+  }
+
+  .fixed-header {
+    width: 100%;
   }
 }
 

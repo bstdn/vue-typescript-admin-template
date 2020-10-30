@@ -38,8 +38,7 @@
         v-if="!isAffix(selectedTag)"
         @click="closeSelectedTag(selectedTag)"
       >
-        {{
-          $t('tagsView.close') }}
+        {{ $t('tagsView.close') }}
       </li>
       <li @click="closeOthersTags">
         {{ $t('tagsView.closeOthers') }}
