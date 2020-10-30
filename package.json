@@ -2,8 +2,10 @@
   "name": "vue-typescript-admin-template",
   "version": "0.1.0",
   "private": true,
-  "author": "Chong Guo <armourcy@gmail.com>",
+  "author": "何秀钢 <xiugang.he@skyee360.com>",
+  "license": "MIT",
   "scripts": {
+    "dev": "vue-cli-service serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
